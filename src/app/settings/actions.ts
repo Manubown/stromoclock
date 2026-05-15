@@ -17,6 +17,7 @@ export async function updateZone(formData: FormData): Promise<void> {
   }
 
   await db.update(users).set({ zone }).where(eq(users.id, user.id));
+  revalidatePath("/settings");
   revalidatePath("/dashboard");
 }
 
@@ -26,5 +27,5 @@ export async function setDigestEnabled(formData: FormData): Promise<void> {
 
   const enabled = formData.get("enabled") === "1";
   await db.update(users).set({ digestEnabled: enabled }).where(eq(users.id, user.id));
-  revalidatePath("/dashboard");
+  revalidatePath("/settings");
 }
